@@ -18,10 +18,12 @@ public extension Modifier {
 
         return Modifier(target: .metadataValues) { html, metadata in
         
-            let removedSingleQuotes = html.trimmingCharacters(in: CharacterSet(charactersIn: "\'"))
-            print(removedSingleQuotes.trimmingCharacters(in: CharacterSet(charactersIn: "\"")));
-            return removedSingleQuotes.trimmingCharacters(in: CharacterSet(charactersIn: "\""))
-
+            var ourString = html
+            if (html.hasPrefix("\"") && html.hasSuffix("\"")) || (html.hasPrefix("\'") && html.hasSuffix("\'"))
+            {
+                ourString = ourString.trimmingCharacters(in: CharacterSet(charactersIn: "\""));
+            }
+            return ourString
         }
     }
 }
