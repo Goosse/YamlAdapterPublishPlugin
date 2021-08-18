@@ -19,9 +19,11 @@ public extension Modifier {
         return Modifier(target: .metadataValues) { html, metadata in
         
             var ourString = html
-            if (html.hasPrefix("\"") && html.hasSuffix("\"")) || (html.hasPrefix("\'") && html.hasSuffix("\'"))
+            if (html.hasPrefix("\"") && html.hasSuffix("\"")) || (html.hasPrefix("'") && html.hasSuffix("'"))
             {
-                ourString = ourString.trimmingCharacters(in: CharacterSet(charactersIn: "\"\'"));
+                ourString = ourString.trimmingCharacters(in: CharacterSet(charactersIn: "\"'"));
+                ourString = ourString.replacingOccurrences(of: "\\\"", with: "\"")
+                ourString = ourString.replacingOccurrences(of: "\\'", with: "'")
             }
             return ourString
         }
